@@ -5,9 +5,15 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import FeedScreen from '../screens/FeedScreen';
+import SearchScreen from '../screens/SearchScreen';
+import CreateScreen from '../screens/CreateScreen';
+import MessagesScreen from '../screens/MessagesScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import { ProfileIcon } from './HeaderNavigator';
+import { BottomTabParamList, FeedParamList, SearchParamList, CreateParamList, MessagesParamList, NotificationsParamList } from '../types';
+
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -16,20 +22,44 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      initialRouteName="Feed"
+      tabBarOptions={{
+        activeTintColor: Colors[colorScheme].tint,
+        showLabel: false
+      }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Feed"
+        component={FeedNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home-outline" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Discover"
+        component={SearchNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="search-outline" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Create"
+        component={CreateNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="add-outline" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Messages"
+        component={MessagesNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="chatbubble-outline" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Notifications"
+        component={NotificationsNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="notifications-outline" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -42,32 +72,118 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
+
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const FeedStack = createStackNavigator<FeedParamList>();
 
-function TabOneNavigator() {
+function FeedNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+    <FeedStack.Navigator>
+      <FeedStack.Screen
+        name="FeedScreen"
+        component={FeedScreen}
+        options={({ navigation }) => ({
+          headerTitle: 'Feed',
+          headerRight: () => <ProfileIcon navigation={navigation} />
+        })}
       />
-    </TabOneStack.Navigator>
+      <FeedStack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={{
+          headerTitle: 'Profile',
+        }}
+      />
+    </FeedStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const SearchStack = createStackNavigator<SearchParamList>();
 
-function TabTwoNavigator() {
+function SearchNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <SearchStack.Navigator>
+      <SearchStack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerTitle: 'Discover',
+          headerRight: () => <TabBarIcon name="person-outline" color={'black'} />
+      }}
       />
-    </TabTwoStack.Navigator>
+    </SearchStack.Navigator>
   );
 }
+
+const CreateStack = createStackNavigator<CreateParamList>();
+
+function CreateNavigator() {
+  return (
+    <CreateStack.Navigator>
+      <CreateStack.Screen
+        name="CreateScreen"
+        component={CreateScreen}
+        options={{
+          headerTitle: 'Create',
+          headerRight: () => <Test />
+        }}
+        />
+    </CreateStack.Navigator>
+  );
+}
+
+const MessagesStack = createStackNavigator<MessagesParamList>();
+
+function MessagesNavigator() {
+  return (
+    <MessagesStack.Navigator>
+      <MessagesStack.Screen
+        name="MessagesScreen"
+        component={MessagesScreen}
+        options={{
+          headerTitle: 'Messages',
+          headerRight: () => <Test />
+        }}
+        />
+    </MessagesStack.Navigator>
+  );
+}
+
+const NotificationsStack = createStackNavigator<NotificationsParamList>();
+
+function NotificationsNavigator() {
+  return (
+    <NotificationsStack.Navigator>
+      <NotificationsStack.Screen
+        name="NotificationsScreen"
+        component={NotificationsScreen}
+        options={{
+          headerTitle: 'Notifications',
+          headerRight: () => <Test />
+        }}
+      />
+    </NotificationsStack.Navigator>
+  );
+}
+
+import { Text, View } from '../components/Themed';
+import Navigation from '.';
+
+function Test() {
+  return (<Text>Testing123</Text>)
+}
+
+// const ProfileStack = createStackNavigator<ProfileParamList>();
+
+// function ProfileNavigator() {
+//   return (
+//     <ProfileStack.Navigator>
+//       <ProfileStack.Screen
+//         name="ProfileScreen"
+//         component={ProfileScreen}
+//         options={{ headerTitle: 'Me' }}
+//       />
+//     </ProfileStack.Navigator>
+//   );
+// }
