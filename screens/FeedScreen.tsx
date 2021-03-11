@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 
-const FeedScreen = () => {
+const FeedScreen = (): JSX.Element => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Activity Feed</Text>

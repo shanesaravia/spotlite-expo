@@ -18,18 +18,22 @@ export type FeedParamList = {
 
 export type SearchParamList = {
   SearchScreen: undefined;
+  ProfileScreen: undefined;
 };
 
 export type CreateParamList = {
   CreateScreen: undefined;
+  ProfileScreen: undefined;
 };
 
 export type MessagesParamList = {
   MessagesScreen: undefined;
+  ProfileScreen: undefined;
 }
 
 export type NotificationsParamList = {
   NotificationsScreen: undefined;
+  ProfileScreen: undefined;
 }
 
 export type ProfileParamList = {
