@@ -11,7 +11,8 @@ import CreateScreen from "../screens/CreateScreen";
 import MessagesScreen from "../screens/MessagesScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { Logo, ProfileIcon } from "./HeaderNavigator";
+import Logo from "../components/Logo";
+import ProfileIcon from "../components/Profile/modules/ProfileIcon";
 import {
   BottomTabParamList,
   FeedParamList,
