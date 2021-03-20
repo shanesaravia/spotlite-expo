@@ -28,11 +28,7 @@ const Register = (): JSX.Element => {
         labelStyle={{ color: theme.colors?.black }}
       />
 
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        title="SIGN UP"
-        onPress={() => console.log("Signed up")}
-      />
+      <Button title="SIGN UP" onPress={() => console.log("Signed up")} />
     </View>
   );
 };

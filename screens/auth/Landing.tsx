@@ -9,8 +9,6 @@ interface Props {
 }
 
 const LoginScreen = ({ navigation }: Props): JSX.Element => {
-  const { theme } = useTheme();
-
   return (
     <View style={styles.container}>
       <Logo width={160} />

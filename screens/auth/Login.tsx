@@ -18,11 +18,7 @@ const Login = (): JSX.Element => {
         labelStyle={{ color: theme.colors?.black }}
       />
 
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        title="LOGIN"
-        onPress={() => console.log("Logged In")}
-      />
+      <Button title="LOGIN" onPress={() => console.log("Logged In")} />
     </View>
   );
 };
