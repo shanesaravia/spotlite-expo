@@ -7,12 +7,14 @@ import {
   StyleProp,
 } from "react-native";
 
-const Icon = (props: {
+interface Props {
   name: React.ComponentProps<typeof Ionicons>["name"];
   style: StyleProp<TextStyle>;
   color: string;
   onpress: (event: GestureResponderEvent) => void;
-}): JSX.Element => {
+}
+
+const Icon = (props: Props): JSX.Element => {
   return (
     <TouchableWithoutFeedback onPress={props.onpress}>
       <Ionicons size={30} {...props} />

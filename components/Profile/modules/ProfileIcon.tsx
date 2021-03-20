@@ -2,7 +2,11 @@ import React from "react";
 import Icon from "../../Icon";
 import { StyleSheet } from "react-native";
 
-const ProfileIcon = ({ navigation }: { navigation: any }): JSX.Element => {
+interface Props {
+  navigation: any;
+}
+
+const ProfileIcon = ({ navigation }: Props): JSX.Element => {
   return (
     <Icon
       name="person-outline"

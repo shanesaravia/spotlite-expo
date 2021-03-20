@@ -1,6 +1,8 @@
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
+  Login: undefined;
+  Register: undefined;
 };
 
 export type BottomTabParamList = {
@@ -29,13 +31,13 @@ export type CreateParamList = {
 export type MessagesParamList = {
   MessagesScreen: undefined;
   ProfileScreen: undefined;
-}
+};
 
 export type NotificationsParamList = {
   NotificationsScreen: undefined;
   ProfileScreen: undefined;
-}
+};
 
 export type ProfileParamList = {
   ProfileScreen: undefined;
-}
+};
