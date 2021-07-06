@@ -1,27 +1,33 @@
-import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import * as React from "react";
-
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
-import FeedScreen from "../screens/FeedScreen";
-import SearchScreen from "../screens/SearchScreen";
-import CreateScreen from "../screens/CreateScreen";
-import MessagesScreen from "../screens/MessagesScreen";
-import NotificationsScreen from "../screens/NotificationsScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import Logo from "../components/Logo";
-import ProfileIcon from "../components/Profile/modules/ProfileIcon";
 import {
   BottomTabParamList,
-  FeedParamList,
-  SearchParamList,
   CreateParamList,
+  FeedParamList,
   MessagesParamList,
   NotificationsParamList,
   ProfileParamList,
+  SearchParamList,
 } from "../types";
+import React, { useRef } from "react";
+
+import AboutScreen from "screens/settings/AboutScreen";
+import BottomSheet from "@gorhom/bottom-sheet";
+import Colors from "../constants/Colors";
+import CreateScreen from "../screens/CreateScreen";
+import FeedScreen from "../screens/FeedScreen";
+import { Ionicons } from "@expo/vector-icons";
+import Logo from "components/Logo";
+import MenuIcon from "components/Profile/modules/MenuIcon";
+import MessagesScreen from "../screens/MessagesScreen";
+import NotificationsScreen from "../screens/NotificationsScreen";
+import PrivacyPolicyScreen from "screens/settings/PrivacyPolicyScreen";
+import ProfileIcon from "components/Profile/modules/ProfileIcon";
+import ProfileScreen from "../screens/ProfileScreen";
+import SearchScreen from "../screens/SearchScreen";
+import SettingsScreen from "screens/settings/SettingsScreen";
+import TermsAndConditionsScreen from "screens/settings/TermsAndConditionsScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import useColorScheme from "../hooks/useColorScheme";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -227,13 +233,75 @@ function NotificationsNavigator() {
 const ProfileStack = createStackNavigator<ProfileParamList>();
 
 function ProfileNavigator() {
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
   return (
     <ProfileStack.Navigator>
       <ProfileStack.Screen
         name="ProfileScreen"
-        component={ProfileScreen}
-        options={{ headerTitle: "Me" }}
+        options={({ navigation }) => ({
+          headerTitle: "Me",
+          headerRight: () => (
+            <MenuIcon navigation={navigation} bottomSheetRef={bottomSheetRef} />
+          ),
+        })}
+      >
+        {({ navigation }) => (
+          <ProfileScreen
+            navigation={navigation}
+            bottomSheetRef={bottomSheetRef}
+          />
+        )}
+      </ProfileStack.Screen>
+      <ProfileStack.Screen
+        name="SettingsScreen"
+        component={SettingsNavigator}
+        options={{
+          headerShown: false,
+          // cardStyle: { backgroundColor: "#FFFFFF" },
+        }}
       />
     </ProfileStack.Navigator>
+  );
+}
+
+const SettingsStack = createStackNavigator();
+
+function SettingsNavigator() {
+  return (
+    <SettingsStack.Navigator>
+      <SettingsStack.Screen
+        name="SettingsScreen"
+        component={SettingsScreen}
+        options={{
+          headerTitle: "Settings",
+          cardStyle: { backgroundColor: "#FFFFFF" },
+        }}
+      />
+      <SettingsStack.Screen
+        name="TermsAndConditionsScreen"
+        component={TermsAndConditionsScreen}
+        options={{
+          headerTitle: "Terms And Conditions",
+          cardStyle: { backgroundColor: "#FFFFFF" },
+        }}
+      />
+      <SettingsStack.Screen
+        name="PrivacyPolicyScreen"
+        component={PrivacyPolicyScreen}
+        options={{
+          headerTitle: "Privacy Policy",
+          cardStyle: { backgroundColor: "#FFFFFF" },
+        }}
+      />
+      <SettingsStack.Screen
+        name="AboutScreen"
+        component={AboutScreen}
+        options={{
+          headerTitle: "About",
+          cardStyle: { backgroundColor: "#FFFFFF" },
+        }}
+      />
+    </SettingsStack.Navigator>
   );
 }

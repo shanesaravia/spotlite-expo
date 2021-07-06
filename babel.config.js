@@ -16,6 +16,8 @@ module.exports = function (api) {
             actions: "./store/actions",
             reducers: "./store/reducers",
             hooks: "./hooks",
+            configs: "./configs",
+            utils: "./utils",
           },
         },
       ],

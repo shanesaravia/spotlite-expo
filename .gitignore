@@ -1,3 +1,7 @@
+# configs
+configs/*
+config.*
+
 node_modules/**/*
 .expo/*
 npm-debug.*

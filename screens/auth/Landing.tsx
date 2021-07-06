@@ -1,27 +1,28 @@
-import React from "react";
+import { Button, useTheme } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
 
 import Logo from "components/Logo";
-import { Button, useTheme } from "react-native-elements";
+import React from "react";
 
 interface Props {
   navigation: string;
 }
 
 const LoginScreen = ({ navigation }: Props): JSX.Element => {
+  const { theme } = useTheme();
   return (
     <View style={styles.container}>
       <Logo width={160} />
       <View style={styles.buttonContainer}>
         <Button
           title="Login"
-          titleStyle={{ color: "black" }}
+          titleStyle={{ color: theme.colors?.black }}
           containerStyle={{ marginHorizontal: 20, marginVertical: 5 }}
           onPress={() => navigation.push("Login")}
         />
         <Button
           title="Register"
-          titleStyle={{ color: "black" }}
+          titleStyle={{ color: theme.colors?.black }}
           containerStyle={{ marginHorizontal: 20, marginVertical: 5 }}
           onPress={() => navigation.push("Register")}
         />

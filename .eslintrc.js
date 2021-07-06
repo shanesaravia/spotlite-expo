@@ -16,8 +16,12 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react", "@typescript-eslint", "simple-import-sort"],
   rules: {
+    // "simple-import-sort/imports": "error",
+    // "simple-import-sort/exports": "error",
+    // "import/newline-after-import": "error",
+    // "import/no-duplicates": "error",
     // Disable
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-function-return-type": "off",

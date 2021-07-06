@@ -1,18 +1,22 @@
-import React from "react";
 import { Image, StyleSheet } from "react-native";
-import { useSelector } from "react-redux";
+
+import React from "react";
 import spotliteLogoDark from "../assets/images/spotlite-logo-dark.png";
 import spotliteLogoLight from "../assets/images/spotlite-logo-light.png";
+import { useSelector } from "react-redux";
 
 interface Props {
   width: number;
+  style: Record<string, unknown>;
 }
 
-const Logo = ({ width }: Props): JSX.Element => {
+const Logo = ({ width, style }: Props): JSX.Element => {
   const themeType = useSelector((state) => state.theme);
   const image = themeType === "dark" ? spotliteLogoDark : spotliteLogoLight;
 
-  return <Image source={image} style={{ ...styles.logo, width: width }} />;
+  return (
+    <Image source={image} style={[styles.logo, style, { width: width }]} />
+  );
 };
 
 const styles = StyleSheet.create({

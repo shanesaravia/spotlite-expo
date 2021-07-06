@@ -11,6 +11,9 @@ const Theme = {
   colors: {
     primary: "#fcc200",
     secondary: "#003366",
+    error: "red",
+    grey: "#a1a1a1",
+    hyperlink: "blue",
   },
 };
 
