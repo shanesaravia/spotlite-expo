@@ -16,7 +16,7 @@ const Rating = (props: Props): JSX.Element => {
     <View style={styles.container}>
       {icon}
       <Text>{text}</Text>
-      <Text style={styles.rating}>{rating}</Text>
+      <Text style={styles.rating}>{rating || 0}</Text>
     </View>
   );
 };

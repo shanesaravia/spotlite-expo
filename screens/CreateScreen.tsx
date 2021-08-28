@@ -1,29 +1,24 @@
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
+
+import { StyleSheet, View } from "react-native";
+
+import SpotliteCamera from "components/Create/SpotliteCamera";
+import { StatusBar } from "expo-status-bar";
 
 const CreateScreen = (): JSX.Element => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create Content</Text>
+      <StatusBar backgroundColor={"transparent"} />
+      <SpotliteCamera />
     </View>
   );
 };
 
-export default CreateScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+    backgroundColor: "black",
   },
 });
+
+export default CreateScreen;

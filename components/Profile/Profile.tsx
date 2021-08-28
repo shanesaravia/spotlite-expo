@@ -9,9 +9,9 @@ import { useSelector } from "react-redux";
 
 const Profile = (): JSX.Element => {
   const { theme } = useTheme();
-  const [followers, setFollowers] = useState(0);
+  const [followersCount, setFollowersCount] = useState(0);
   const [fame, setFame] = useState(0);
-  const [following, setFollowing] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
   const [bio, setBio] = useState("");
   const [username, setUsername] = useState("");
   const user = useSelector((state) => state.user);
@@ -21,9 +21,10 @@ const Profile = (): JSX.Element => {
       .get(`/users/${user.id}`)
       .then((resp) => {
         const { username } = resp.data;
-        const { followers, following, fame, bio } = resp.data.profile;
-        setFollowers(followers);
-        setFollowing(following);
+        const { followers_count, following_count, fame, bio } =
+          resp.data.profile;
+        setFollowersCount(followers_count);
+        setFollowingCount(following_count);
         setFame(fame);
         setBio(bio);
         setUsername(username);
@@ -49,7 +50,7 @@ const Profile = (): JSX.Element => {
         <Rating
           icon={<MaterialIcons name="people" size={28} color="black" />}
           text={"Followers"}
-          rating={followers}
+          rating={followersCount}
         />
         <Rating
           icon={<MaterialIcons name="star" size={28} color="black" />}
@@ -59,7 +60,7 @@ const Profile = (): JSX.Element => {
         <Rating
           icon={<MaterialIcons name="person" size={28} color="black" />}
           text={"Following"}
-          rating={following}
+          rating={followingCount}
         />
       </View>
     </View>

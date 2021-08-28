@@ -67,6 +67,7 @@ const BottomTabNavigator: React.FC = () => {
           tabBarIcon: ({ color }: { color: string }) => (
             <TabBarIcon name="add-outline" color={color} />
           ),
+          // tabBarVisible: false,
         }}
       />
       <BottomTab.Screen
@@ -156,6 +157,19 @@ function SearchNavigator() {
 }
 
 const CreateStack = createStackNavigator<CreateParamList>();
+CreateStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+
+  const routeName = navigation.state.routes[navigation.state.index].routeName;
+
+  if (routeName == "ProductDetails") {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+  };
+};
 
 function CreateNavigator() {
   return (
@@ -163,10 +177,10 @@ function CreateNavigator() {
       <CreateStack.Screen
         name="CreateScreen"
         component={CreateScreen}
-        options={({ navigation }) => ({
-          headerTitle: "Create",
-          headerRight: () => <ProfileIcon navigation={navigation} />,
-        })}
+        options={{
+          headerShown: false,
+          tabBarVisible: false,
+        }}
       />
       <CreateStack.Screen
         name="ProfileScreen"
