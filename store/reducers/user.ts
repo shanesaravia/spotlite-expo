@@ -21,10 +21,21 @@ const initialState = {
   isLoading: false,
 };
 
+interface action {
+  payload: payload;
+  type: string;
+}
+
+interface payload {
+  id: number;
+  username: string;
+  profile: Record<string, unknown>;
+}
+
 const authReducer = (
   state = initialState,
-  action: Record<string, unknown>
-): Record<string, unknown> => {
+  action: action
+): Record<string, unknown> | null => {
   switch (action.type) {
     case FETCH_USER_REQUEST:
       return {

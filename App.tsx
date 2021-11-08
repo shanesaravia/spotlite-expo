@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import Navigation from "./navigation";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
+import { RootSiblingParent } from "react-native-root-siblings";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import Theme from "./Theme";
@@ -48,18 +49,19 @@ const App = (): JSX.Element | null => {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider useDark={colorScheme === "dark"} theme={Theme}>
-            <SafeAreaProvider>
-              <Navigation
-                colorScheme={colorScheme}
-                authenticated={authenticated}
-              />
-              <StatusBar />
-            </SafeAreaProvider>
+            <RootSiblingParent>
+              <SafeAreaProvider>
+                <Navigation
+                  colorScheme={colorScheme}
+                  authenticated={authenticated}
+                />
+                <StatusBar />
+              </SafeAreaProvider>
+            </RootSiblingParent>
           </ThemeProvider>
         </PersistGate>
       </Provider>
     );
-    useColorScheme();
   }
 };
 

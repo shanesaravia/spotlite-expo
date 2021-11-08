@@ -12,15 +12,15 @@ const SettingsScreen = ({ navigation }: Props): JSX.Element => {
 
   return (
     <>
-      <ListItem onPress={() => navigation.push("TermsAndConditionsScreen")}>
+      <ListItem onPress={() => navigation.navigate("TermsAndConditionsScreen")}>
         <Icon source="material" name="privacy-tip" color={theme.colors.grey} />
         <Text style={{ fontSize: 18 }}>Terms And Conditions</Text>
       </ListItem>
-      <ListItem onPress={() => navigation.push("PrivacyPolicyScreen")}>
+      <ListItem onPress={() => navigation.navigate("PrivacyPolicyScreen")}>
         <Icon source="material" name="policy" color={theme.colors.grey} />
         <Text style={{ fontSize: 18 }}>Privacy Policy</Text>
       </ListItem>
-      <ListItem onPress={() => navigation.push("AboutScreen")}>
+      <ListItem onPress={() => navigation.navigate("AboutScreen")}>
         <Icon source="material" name="info" color={theme.colors.grey} />
         <Text style={{ fontSize: 18 }}>About</Text>
       </ListItem>

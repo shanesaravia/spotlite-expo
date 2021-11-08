@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import EmailConfirm from "./modules/EmailConfirm";
 import Logo from "components/Logo";
+import { ThemeType } from "types";
 import firebase from "firebase";
 
 const PasswordReset = (): JSX.Element => {
@@ -61,7 +62,7 @@ const PasswordReset = (): JSX.Element => {
   }
 };
 
-const styles = (theme) =>
+const styles = (theme: ThemeType) =>
   StyleSheet.create({
     logo: {
       alignSelf: "center",
@@ -69,7 +70,7 @@ const styles = (theme) =>
       paddingVertical: 100,
     },
     error: {
-      color: theme.colors.error,
+      color: theme?.colors?.error,
       paddingLeft: "3%",
       position: "relative",
       top: -20,

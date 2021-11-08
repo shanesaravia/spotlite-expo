@@ -39,18 +39,18 @@ const ProfileScreen = ({ navigation, bottomSheetRef }: Props): JSX.Element => {
         <ListItem
           onPress={() => {
             bottomSheetRef.current.collapse();
-            navigation.push("SettingsScreen");
+            navigation.navigate("SettingsScreen");
           }}
         >
-          <Icon source="material" name="settings" color={theme.colors.grey} />
+          <Icon source="material" name="settings" color={theme.colors?.grey} />
           <Text style={{ fontSize: 18 }}>Settings</Text>
         </ListItem>
         <ListItem onPress={() => console.log("TEST settings clicked")}>
-          <Icon source="material" name="mode-edit" color={theme.colors.grey} />
+          <Icon source="material" name="mode-edit" color={theme.colors?.grey} />
           <Text style={{ fontSize: 18 }}>Edit Profile</Text>
         </ListItem>
         <ListItem onPress={firebaseSignOut}>
-          <Icon source="material" name="logout" color={theme.colors.grey} />
+          <Icon source="material" name="logout" color={theme.colors?.grey} />
           <Text style={{ fontSize: 18 }}>Logout</Text>
         </ListItem>
       </BottomSheet>

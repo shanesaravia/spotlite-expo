@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 import SpotliteCamera from "components/Create/SpotliteCamera";
 import { StatusBar } from "expo-status-bar";
 
-const CreateScreen = (): JSX.Element => {
+const CreateCameraScreen = (): JSX.Element => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"transparent"} />
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateScreen;
+export default CreateCameraScreen;

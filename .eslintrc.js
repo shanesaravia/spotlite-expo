@@ -7,6 +7,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -16,7 +18,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint", "simple-import-sort"],
+  plugins: ["react", "@typescript-eslint", "prettier", "simple-import-sort"],
   rules: {
     // "simple-import-sort/imports": "error",
     // "simple-import-sort/exports": "error",

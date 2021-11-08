@@ -5,7 +5,7 @@ import Logo from "components/Logo";
 import React from "react";
 
 interface Props {
-  navigation: string;
+  navigation: { navigate: (arg0: string) => void };
 }
 
 const LoginScreen = ({ navigation }: Props): JSX.Element => {
@@ -18,13 +18,13 @@ const LoginScreen = ({ navigation }: Props): JSX.Element => {
           title="Login"
           titleStyle={{ color: theme.colors?.black }}
           containerStyle={{ marginHorizontal: 20, marginVertical: 5 }}
-          onPress={() => navigation.push("Login")}
+          onPress={() => navigation.navigate("Login")}
         />
         <Button
           title="Register"
           titleStyle={{ color: theme.colors?.black }}
           containerStyle={{ marginHorizontal: 20, marginVertical: 5 }}
-          onPress={() => navigation.push("Register")}
+          onPress={() => navigation.navigate("Register")}
         />
       </View>
     </View>

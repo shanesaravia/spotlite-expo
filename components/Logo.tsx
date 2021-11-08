@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 interface Props {
   width: number;
-  style: Record<string, unknown>;
+  style?: Record<string, unknown>;
 }
 
 const Logo = ({ width, style }: Props): JSX.Element => {

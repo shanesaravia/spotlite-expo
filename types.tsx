@@ -1,3 +1,5 @@
+import { FullTheme } from "react-native-elements/dist/config/theme";
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -42,3 +44,5 @@ export type ProfileParamList = {
   ProfileScreen: undefined;
   SettingsScreen: undefined;
 };
+
+export type ThemeType = Partial<FullTheme>;

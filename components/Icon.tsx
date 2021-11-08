@@ -13,14 +13,15 @@ import {
 import React from "react";
 
 interface Props {
-  name: React.ComponentProps<typeof Ionicons>["name"];
-  source: string;
-  style: StyleProp<TextStyle>;
+  // name: React.ComponentProps<typeof Ionicons>["name"];
+  name: string;
+  source?: string;
+  style?: StyleProp<TextStyle>;
   color: string;
-  onpress: (event: GestureResponderEvent) => void;
+  onpress?: (event: GestureResponderEvent) => void;
 }
 
-const getIcon = (props) => {
+const getIcon = (props: Props) => {
   switch (props.source) {
     case "material":
       return <MaterialIcons size={30} {...props} />;

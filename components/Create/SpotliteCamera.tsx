@@ -1,3 +1,6 @@
+import * as ImagePicker from "expo-image-picker";
+import * as MediaLibrary from "expo-media-library";
+
 import {
   Dimensions,
   StatusBar,
@@ -12,11 +15,14 @@ import React, { useEffect, useState } from "react";
 import { Camera } from "expo-camera";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 
 const SpotliteCamera = (): JSX.Element => {
   const [hasPermission, setHasPermission] = useState(null);
+  const [hasLibraryPermission, setHasLibraryPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const isFocused = useIsFocused();
+  const navigation = useNavigation();
 
   const { height, width } = Dimensions.get("window");
   const screenRatio = height / width;
@@ -26,11 +32,14 @@ const SpotliteCamera = (): JSX.Element => {
   const [cameraRef, setCameraRef] = useState(null);
   const [flashMode, setFlashMode] = useState("auto");
   const [lastPress, setLastPress] = useState(0);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
+      const { accessPrivileges } = await MediaLibrary.requestPermissionsAsync();
+      setHasLibraryPermission(accessPrivileges === "all");
     })();
     return Camera.pausePreview;
   }, []);
@@ -110,6 +119,32 @@ const SpotliteCamera = (): JSX.Element => {
       : setType(Camera.Constants.Type.back);
   };
 
+  const handleTakePhoto = async () => {
+    if (cameraRef) {
+      const photo = await cameraRef.takePictureAsync();
+      console.log("photo", photo);
+      setImage(photo);
+      // MediaLibrary.saveToLibraryAsync(photo.uri);
+    }
+  };
+
+  const handlePickImage = async () => {
+    // const result = await ImagePicker.launchImageLibraryAsync({
+    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //   allowsEditing: true,
+    //   aspect: [4, 3],
+    //   quality: 1,
+    // });
+
+    // console.log(result);
+
+    // if (!result.cancelled) {
+    //   setImage(result.uri);
+    //   console.log("\n\n\n image: ", result);
+    // }
+    navigation.navigate("Select");
+  };
+
   const setCameraReady = async () => {
     if (!isRatioSet) {
       await prepareRatio();
@@ -143,6 +178,12 @@ const SpotliteCamera = (): JSX.Element => {
       <TouchableWithoutFeedback onPress={handleDoubleTap}>
         <View style={styles.cameraWrapper}>
           <TouchableOpacity
+            style={styles.textContainer}
+            onPress={() => navigation.navigate("Text")}
+          >
+            <MaterialIcons size={35} name="chat-bubble" style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity
             style={styles.flashIconContainer}
             onPress={handleFlash}
           >
@@ -154,18 +195,16 @@ const SpotliteCamera = (): JSX.Element => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonContainer}
-            onPress={async () => {
-              if (cameraRef) {
-                const photo = await cameraRef.takePictureAsync();
-                console.log("photo", photo);
-              }
-            }}
+            onPress={handleTakePhoto}
           >
             <View style={styles.buttonOuter}>
               <View style={styles.buttonInner}></View>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.libraryIconContainer}>
+          <TouchableOpacity
+            style={styles.libraryIconContainer}
+            onPress={handlePickImage}
+          >
             <MaterialIcons size={35} name="photo-library" style={styles.icon} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -234,6 +273,11 @@ const styles = StyleSheet.create({
     bottom: 10,
   },
   flashIconContainer: {
+    position: "absolute",
+    left: 10,
+    top: StatusBar.currentHeight + 10,
+  },
+  textContainer: {
     position: "absolute",
     right: 10,
     top: StatusBar.currentHeight + 10,

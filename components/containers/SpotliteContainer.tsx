@@ -4,15 +4,16 @@ import React from "react";
 
 interface Props {
   children: any;
+  style?: Record<string, unknown>;
 }
 
-const SpotliteContainer = ({ children }: Props): JSX.Element => {
-  return <View style={styles.container}>{children}</View>;
+const SpotliteContainer = ({ children, style }: Props): JSX.Element => {
+  return <View style={[styles.container, style]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 10,
+    paddingHorizontal: 10,
   },
 });
 
