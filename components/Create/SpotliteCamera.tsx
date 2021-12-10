@@ -1,8 +1,7 @@
-import * as ImagePicker from "expo-image-picker";
-import * as MediaLibrary from "expo-media-library";
-
+import { Camera, CameraCapturedPicture } from "expo-camera";
 import {
   Dimensions,
+  Platform,
   StatusBar,
   StyleSheet,
   Text,
@@ -12,14 +11,12 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
-import { Camera } from "expo-camera";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/core";
 import { useNavigation } from "@react-navigation/core";
 
 const SpotliteCamera = (): JSX.Element => {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [hasLibraryPermission, setHasLibraryPermission] = useState(null);
+  const [hasPermission, setHasPermission] = useState<null | boolean>(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -27,19 +24,17 @@ const SpotliteCamera = (): JSX.Element => {
   const { height, width } = Dimensions.get("window");
   const screenRatio = height / width;
   const [imagePadding, setImagePadding] = useState(0);
-  const [ratio, setRatio] = useState("4:3"); // default is 4:3
+  const [ratio, setRatio] = useState("4:3");
   const [isRatioSet, setIsRatioSet] = useState(false);
-  const [cameraRef, setCameraRef] = useState(null);
+  const [cameraRef, setCameraRef] = useState<Camera | null>(null);
   const [flashMode, setFlashMode] = useState("auto");
   const [lastPress, setLastPress] = useState(0);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<CameraCapturedPicture | null>(null);
 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
-      const { accessPrivileges } = await MediaLibrary.requestPermissionsAsync();
-      setHasLibraryPermission(accessPrivileges === "all");
     })();
     return Camera.pausePreview;
   }, []);
@@ -47,7 +42,7 @@ const SpotliteCamera = (): JSX.Element => {
   // set the camera ratio and padding.
   // this code assumes a portrait mode screen
   const prepareRatio = async () => {
-    let desiredRatio = "16:9"; // Start with the system default
+    let desiredRatio: string = "16:9"; // Start with the system default
     // This issue only affects Android
     if (Platform.OS === "android") {
       const ratios = await cameraRef.getSupportedRatiosAsync();
@@ -55,9 +50,9 @@ const SpotliteCamera = (): JSX.Element => {
       // Calculate the width/height of each of the supported camera ratios
       // These width/height are measured in landscape mode
       // find the ratio that is closest to the screen ratio without going over
-      const distances = {};
-      const realRatios = {};
-      let minDistance = null;
+      const distances: { [key: string]: number } = {};
+      const realRatios: { [key: string]: number } = {};
+      let minDistance = "";
       for (const ratio of ratios) {
         const parts = ratio.split(":");
         const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
@@ -65,7 +60,7 @@ const SpotliteCamera = (): JSX.Element => {
         // ratio can't be taller than screen, so we don't want an abs()
         const distance = screenRatio - realRatio;
         distances[ratio] = realRatio;
-        if (minDistance == null) {
+        if (!minDistance) {
           minDistance = ratio;
         } else {
           if (distance >= 0 && distance < distances[minDistance]) {
@@ -87,6 +82,50 @@ const SpotliteCamera = (): JSX.Element => {
       setIsRatioSet(true);
     }
   };
+
+  // // set the camera ratio and padding.
+  // // this code assumes a portrait mode screen
+  // const prepareRatio = async () => {
+  //   let desiredRatio = "16:9"; // Start with the system default
+  //   // This issue only affects Android
+  //   if (Platform.OS === "android") {
+  //     const ratios = await cameraRef.getSupportedRatiosAsync();
+
+  //     // Calculate the width/height of each of the supported camera ratios
+  //     // These width/height are measured in landscape mode
+  //     // find the ratio that is closest to the screen ratio without going over
+  //     const distances = {};
+  //     const realRatios = {};
+  //     let minDistance = null;
+  //     for (const ratio of ratios) {
+  //       const parts = ratio.split(":");
+  //       const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
+  //       realRatios[ratio] = realRatio;
+  //       // ratio can't be taller than screen, so we don't want an abs()
+  //       const distance = screenRatio - realRatio;
+  //       distances[ratio] = realRatio;
+  //       if (minDistance == null) {
+  //         minDistance = ratio;
+  //       } else {
+  //         if (distance >= 0 && distance < distances[minDistance]) {
+  //           minDistance = ratio;
+  //         }
+  //       }
+  //     }
+  //     // set the best match
+  //     desiredRatio = minDistance;
+  //     //  calculate the difference between the camera width and the screen height
+  //     const remainder = Math.floor(
+  //       (height - realRatios[desiredRatio] * width) / 2
+  //     );
+  //     // set the preview padding and preview ratio
+  //     setImagePadding(remainder / 2);
+  //     setRatio(desiredRatio);
+  //     // Set a flag so we don't do this
+  //     // calculation each time the screen refreshes
+  //     setIsRatioSet(true);
+  //   }
+  // };
 
   const handleFlash = () => {
     switch (flashMode) {
@@ -124,24 +163,10 @@ const SpotliteCamera = (): JSX.Element => {
       const photo = await cameraRef.takePictureAsync();
       console.log("photo", photo);
       setImage(photo);
-      // MediaLibrary.saveToLibraryAsync(photo.uri);
     }
   };
 
   const handlePickImage = async () => {
-    // const result = await ImagePicker.launchImageLibraryAsync({
-    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
-    //   allowsEditing: true,
-    //   aspect: [4, 3],
-    //   quality: 1,
-    // });
-
-    // console.log(result);
-
-    // if (!result.cancelled) {
-    //   setImage(result.uri);
-    //   console.log("\n\n\n image: ", result);
-    // }
     navigation.navigate("Select");
   };
 
@@ -275,12 +300,12 @@ const styles = StyleSheet.create({
   flashIconContainer: {
     position: "absolute",
     left: 10,
-    top: StatusBar.currentHeight + 10,
+    top: StatusBar?.currentHeight || 0 + 10,
   },
   textContainer: {
     position: "absolute",
     right: 10,
-    top: StatusBar.currentHeight + 10,
+    top: StatusBar.currentHeight || 0 + 10,
   },
 });
 
