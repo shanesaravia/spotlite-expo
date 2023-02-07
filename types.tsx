@@ -1,17 +1,48 @@
+import { FullTheme } from "react-native-elements/dist/config/theme";
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
+  Login: undefined;
+  Register: undefined;
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  Feed: undefined;
+  Discover: undefined;
+  Create: undefined;
+  Messages: undefined;
+  Notifications: undefined;
 };
 
-export type TabOneParamList = {
-  TabOneScreen: undefined;
+export type FeedParamList = {
+  FeedScreen: undefined;
+  ProfileScreen: undefined;
 };
 
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type SearchParamList = {
+  SearchScreen: undefined;
+  ProfileScreen: undefined;
 };
+
+export type CreateParamList = {
+  CreateScreen: undefined;
+  ProfileScreen: undefined;
+};
+
+export type MessagesParamList = {
+  MessagesScreen: undefined;
+  ProfileScreen: undefined;
+};
+
+export type NotificationsParamList = {
+  NotificationsScreen: undefined;
+  ProfileScreen: undefined;
+};
+
+export type ProfileParamList = {
+  ProfileScreen: undefined;
+  SettingsScreen: undefined;
+};
+
+export type ThemeType = Partial<FullTheme>;

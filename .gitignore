@@ -1,3 +1,9 @@
+# configs
+configs/*
+config.*
+
+.nvmrc
+
 node_modules/**/*
 .expo/*
 npm-debug.*
